@@ -26,3 +26,12 @@ infected/.
 
 
 
+** adding additional terminal error conditions
+
+The Savapi module can now handle additional terminal return codes
+
+ | Return Code | Description                                                     |
+ |-------------+-----------------------------------------------------------------|
+ |         220 | connection timeout                                              |
+ |         350 | unspecified error, additional details in the SAVAPI scanner log |
+ |         404 | too many clients connected                                      |
