@@ -1,0 +1,12 @@
+#+Title: SAVAPI (Avira) Antivirus Scanner Module for RSpamd
+#+Author: Carsten Strotmann
+#+Date: <2019-04-04 Thu>
+
+* Overview
+
+This repository contains an updated Lua-Module for the RSpamd
+Spam-Filtering System. It is more robust and evaluates more return
+codes from the SAVAPI scanner.
+
+
+
