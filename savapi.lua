@@ -138,21 +138,24 @@ local function savapi_check(task, content, digest, rule)
       local result = tostring(data)
       lua_util.debugm(rule.name, task, "%s: got reply: %s",
           rule.type, result)
+      rspamd_logger.infox(task, '%s: reply %s', rule['type'], result)
+      rcode = tonumber(string.sub(result,1,4))
 
       -- Terminal response - clean
-      if string.find(result, '200') or string.find(result, '210') then
+      if (rcode == 200) or (rcode == 210) then
         if rule['log_clean'] then
-          rspamd_logger.infox(task, '%s: message or mime_part is clean', rule['type'])
+	  rspamd_logger.infox(task, '%s [%s]: message or mime_part is clean', rule['symbol'], rule['type'])
         end
         common.save_av_cache(task, digest, rule, 'OK')
         conn:add_write(savapi_fin_cb, 'QUIT\n')
 
         -- Terminal response - infected
-      elseif string.find(result, '319') then
+      elseif (rcode == 319) then
+        yield_result(task, rule, vnames)
         conn:add_write(savapi_fin_cb, 'QUIT\n')
 
         -- Non-terminal response
-      elseif string.find(result, '310') then
+      elseif (rcode == 310) then
         local virus
         virus = result:match "310.*<<<%s(.*)%s+;.*;.*"
         if not virus then
