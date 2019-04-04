@@ -28,6 +28,8 @@ infected/.
 
 ** adding additional terminal error conditions
 
+Git =b66be7ebdde9e1cc9a96aee243e6e6116e8abb1d= 
+
 The Savapi module can now handle additional terminal return codes
 
  | Return Code | Description                                                     |
@@ -35,3 +37,19 @@ The Savapi module can now handle additional terminal return codes
  |         220 | connection timeout                                              |
  |         350 | unspecified error, additional details in the SAVAPI scanner log |
  |         404 | too many clients connected                                      |
+
+** adding additional non-terminal error conditions
+
+Git =1d294b064f97abee587c9d02fc9d065e67848a88=
+
+The Savapi module can now handle additional non-terminal return codes
+
+ | Return Code | Description                                            |
+ |-------------+--------------------------------------------------------|
+ |         421 | Microsoft OLE Document found                           |
+ |         422 | Microsoft OLE Document with Macros found               |
+ |         423 | Microsoft OLE Document with Autostart-Macros found     |
+ |         430 | Altert URL (URL to a page with additional information) |
+ |         450 | Plugin response                                        |
+ |     499,100 | Information from SAVAPI                                |
+ |         ??? | Unknow SAVAPI returncode                               |
