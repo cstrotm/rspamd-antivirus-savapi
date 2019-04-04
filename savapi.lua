@@ -182,6 +182,30 @@ local function savapi_check(task, content, digest, rule)
         vnames[virus] = 1
         -- More content is expected
         conn:add_write(savapi_scan1_cb, '\n')
+      elseif (rcode == 421) then
+        rspamd_logger.infox(task, '%s [%s]: Microsoft Office OLE Document found', rule['symbol'], rule['type'])
+        conn:add_write(savapi_scan1_cb, '\n')
+      elseif (rcode == 422) then
+        rspamd_logger.infox(task, '%s [%s]: Microsoft Office OLE Document with macros found', rule['symbol'], rule['type'])
+        conn:add_write(savapi_scan1_cb, '\n')
+      elseif (rcode ==  423) then
+        rspamd_logger.infox(task, '%s [%s]: Microsoft Office OLE Document with autostart macros found', rule['symbol'], rule['type'])
+        conn:add_write(savapi_scan1_cb, '\n')
+      elseif (rcode == 430) then
+        rspamd_logger.infox(task, '%s [%s]: Alert URL', rule['symbol'], rule['type'])
+        conn:add_write(savapi_scan1_cb, '\n')
+      elseif (rcode == 450) then
+        rspamd_logger.infox(task, '%s [%s]: Plugin response', rule['symbol'], rule['type'])
+        conn:add_write(savapi_scan1_cb, '\n')
+      elseif (rcode == 499) then
+        rspamd_logger.infox(task, '%s [%s]: Information', rule['symbol'], rule['type'])
+        conn:add_write(savapi_scan1_cb, '\n')
+      elseif (rcode == 100) then
+        rspamd_logger.infox(task, '%s [%s]: Information', rule['symbol'], rule['type'])
+        conn:add_write(savapi_scan1_cb, '\n')
+      else
+        rspamd_logger.infox(task, '%s [%s]: Unknown SAVAPI returncode %s', rule['symbol'], rule['type'], rcode)
+        conn:add_write(savapi_scan1_cb, '\n')
       end
     end
 
