@@ -20,7 +20,7 @@ also contain other text such as the filename of an infected file. If
 that filename contained a numner that is also a valid returncode
 (example: /Buy 200000 v*** pills on this website/) and because the
 return code "200" (not infected) is evaluated first before other
-return codes, an invected mail could have been passed as /not
+return codes, an infected mail could have been passed as /not
 infected/.
 
 
