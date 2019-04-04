@@ -149,9 +149,20 @@ local function savapi_check(task, content, digest, rule)
         common.save_av_cache(task, digest, rule, 'OK')
         conn:add_write(savapi_fin_cb, 'QUIT\n')
 
-        -- Terminal response - infected
+      -- Terminal response - infected
       elseif (rcode == 319) then
         yield_result(task, rule, vnames)
+        conn:add_write(savapi_fin_cb, 'QUIT\n')
+
+      -- Terminal response - Errors
+      elseif (rcode == 220) then
+        rspamd_logger.infox(task, '%s [%s]: A connection timeout occured', rule['symbol'], rule['type'])
+        conn:add_write(savapi_fin_cb, 'QUIT\n')
+      elseif (rcode ==350) then
+        rspamd_logger.infox(task, '%s [%s]: Error occured. Please check SAVAPI scanner log', rule['symbol'], rule['type'])
+        conn:add_write(savapi_fin_cb, 'QUIT\n')
+      elseif (rcode == 404) then
+        rspamd_logger.infox(task, '%s [%s]: Too many clients connected', rule['symbol'], rule['type'])
         conn:add_write(savapi_fin_cb, 'QUIT\n')
 
         -- Non-terminal response
