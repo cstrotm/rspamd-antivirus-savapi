@@ -12,6 +12,8 @@ codes from the SAVAPI scanner.
 
 ** making evaluation of SAVAPI return code more robust
 
+Git =fdd9ffd5fed2b2c22d300cd211c2e2020c6ef1bb=
+
 The old code used sting comparison to decide on the return code of the
 SAVAPI antivirus scanner. However the return string from SAVAPI could
 also contain other text such as the filename of an infected file. If
